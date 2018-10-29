@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <script>
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://localhost/ajax-learning/php/time.php');
+        xhr.send();
+        //因为客户端永远不知道服务端何时才能返回响应
+        //所以ajax API 采用事件的机制
+
+        //状态改变就会触发这个事件，并不只是在服务器响应时触发
+        // 状态有0,1,2,3,4共五种
+        xhr.onreadystatechange = function () {
+            if (this.readyState != 4) return
+            console.log(this.responseText)
+        }
+        //因为响应需要时间，所以无法通过返回值的方式返回响应
+        //var responsr = xhr.send();
+    </script>
+</body>
+
+</html>

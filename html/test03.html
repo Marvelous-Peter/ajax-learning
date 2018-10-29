@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let xhr = new XMLHttpRequest();
+        console.log(xhr.readyState);
+        //0,UNSENT,xhr对象被创建，尚未调用open()
+
+        xhr.open('GET', '../php/time.php');
+        console.log(xhr.readyState);
+        //1,OPENED,open()被调用，建立了连接
+
+        xhr.send();
+
+        xhr.addEventListener('readystatechange', function () {
+            switch (this.readyState) {
+                //2,HEADER_RECEIVED,send()被调用，已经可以获取状态行和响应头,没有响应体（responseText）
+                case 2:
+                    console.log(this.readyState)
+                    console.log(this.getAllResponseHeaders())
+                    console.log('响应体：', this.responseText)
+                    break
+                    // 3,LOADING,正在下载响应报文的响应体，responseText 属性为空,可能已经包含部分数据。
+                    //取决于请求响应体的大小
+                case 3:
+                    console.log(this.readyState)
+                    console.log('响应体：', this.responseText)
+
+                    break
+                    //4，DONE,请求就绪响应体下载完成，可以直接使用responseText。
+                case 4:
+                    console.log(this.readyState)
+                    console.log('响应体：', this.responseText)
+                    break
+
+            }
+
+        })
+    </script>
+</body>
+
+</html>

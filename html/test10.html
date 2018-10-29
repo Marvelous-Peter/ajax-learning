@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>表格数据填充1</title>
+</head>
+<body>
+  <table border="1"  style="border-collapse: collapse" >
+    <tbody id="content" >
+
+    </tbody>
+  </table>
+  <script>
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET','../php/test.php');
+    xhr.onreadystatechange = function(){
+      if(xhr.readyState!=4)return;
+      console.log(JSON.parse(this.responseText).data);
+      let data = JSON.parse(this.responseText).data;
+      let tb = document.getElementById("content");
+      for(let i=0;i<data.length;i++){
+        //先创建行，再创建列，再添加
+        let tr = document.createElement("tr");
+        let td1 = document.createElement("td");
+        let td2 = document.createElement("td");
+        td1.innerHTML = data[i].id;
+        td2.innerHTML = data[i].author;
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tb.appendChild(tr);
+      }
+    }
+    xhr.send();
+  </script>
+</body>
+</html>

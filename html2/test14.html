@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>使用jquery ajax</title>
+</head>
+
+<body>
+  <script src="../jquery-3.3.1.min.js"></script>
+  <script>
+    $.ajax({
+      url: '../php2/json.php',
+      type: 'get',
+      //设置传给服务器的数据
+      //如果是get,参数通过url传递
+      //如果是post,参数通过请求体传递
+      //data: {
+      //  id: 1,
+      //  name: '张三'
+      //},
+
+      success: function (res) {
+        //res会自动根据服务端响应的Content-Type 自动转化为对象
+        //jQuery提供的功能
+        console.log(res)
+      }
+
+    })
+
+    $.ajax({
+      url:'../php2/json.php',
+      type:'get',
+      //如果服务端没有设置Content-type,使用dataType手动设置
+      //如果设置了dataType,则会忽略服务端的content-type
+      dataType:'json',
+      success:function(res){
+        console.log(res)
+      }
+    })
+
+  </script>
+</body>
+
+</html>

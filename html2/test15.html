@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>jquery ajax回调</title>
+</head>
+
+<body>
+  <script src="../jquery-3.3.1.min.js"></script>
+  <script>
+    //原生js中不管请求状态是多少都会触发回调
+
+    $.ajax({
+      url: '../php2/time4.php',
+      type: 'get',
+      dataType: 'json',
+      beforeSend: function (xhr) {
+
+        //readyState=0,open之前
+        console.log(xhr)
+      },
+      //jquery只有状态码为200才会执行这个函数
+      success: function (res) {
+        //readyState=4
+        console.log(res)
+      },
+      //请求不正常才会完成
+      error: function (xhr) {
+        //readyState=4
+        console.log('error', xhr)
+      },
+      //请求完成：包含成功失败，都会执行
+      complete: function (xhr) {
+        //readyState=4
+        console.log('complete', xhr);
+      }
+    })
+  </script>
+</body>
+
+</html>

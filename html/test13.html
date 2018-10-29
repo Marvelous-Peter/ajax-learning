@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function ajax(method, url, params = null,done) {
+
+      let res = null;
+      method = method.toUpperCase();
+
+      let xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft XMLHTTP")
+      
+      if (typeof params == 'object') {
+        let arrTemp = [];
+        for (let key in params) {
+          let value = params[key];
+          arrTemp.push(key + '=' + value)
+        }
+        params = arrTemp.join('&')
+      }
+
+      if (method == "GET") url += '?' + params;
+
+      xhr.open(method, url);
+      //必须已经open才能使用setRequestHeader
+      if (method == 'POST') {
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+      }
+
+      xhr.onreadystatechange = function () {
+        if (this.readyState != 4) return;
+        done(this.responseText)
+      };
+
+      xhr.send(params);
+    }
+
+    let getResult = function(res){
+      console.log('got')
+      console.log(res)
+    }
+
+    ajax('GET', '../php/time.php','',getResult)
+    //ajax('POST', '../php/add.php', {'key1': 'value1','key2': 'value2'})
+
+  </script>
+</body>
+
+</html>

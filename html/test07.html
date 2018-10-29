@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>AJAX发送POST请求</title>
+</head>
+
+<body>
+  <!--  界面不会刷新 -->
+  <table border="1">
+    <tr>
+      <td>用户名</td>
+      <td><input type="text" id="username"></td>
+    </tr>
+    <tr>
+      <td>密码</td>
+      <td><input type="password" id="psw"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><button id="btn">登录</button></td>
+    </tr>
+  </table>
+  <script>
+    let btn = document.getElementById("btn");
+    btn.onclick = function () {
+      //获取界面上的元素
+      //通过xhr发送POST请求。
+      //根据服务端反馈，做出界面元素
+      let username = document.getElementById("username").value;
+      let password = document.getElementById("psw").value;
+      let xhr = new XMLHttpRequest()
+      xhr.open('POST', '../php/login.php')
+      //如果请求体是urlencoded格式，必须设置请求头
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState != 4) return
+        console.log(this.responseText)
+      }
+      xhr.send(`username=${username}&password=${password}`)
+
+
+    }
+  </script>
+</body>
+
+</html>

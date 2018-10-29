@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', '../php/time.php');
+        //send()设置请求体
+        xhr.send(null);
+        //xhr.onreadystatechange = function () {
+        //   console.log(this.readyState)
+        //console.log(this.responseText)
+        //}
+
+
+        //在readyState为4的时候才会触发
+        xhr.onload = function () {
+            console.log(this.status)
+            // 获取响应状态描述
+            console.log(this.statusText)
+            console.log(this.readyState)
+            console.log(this.responseText)
+        }
+    </script>
+</body>
+
+</html>

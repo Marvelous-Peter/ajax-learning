@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>尝试进行跨域请求</title>
+</head>
+<body>
+  <script src="../jquery-3.3.1.min.js"></script>
+  <script>
+    
+    //能发出去，能收回来
+
+    //img iframe link script
+
+    //可以发送不同源地址的请求
+    //无法拿到响应结果,可以用来加载图片
+    // let img = new Image();
+    // img.src = 'http://ww1.sinaimg.cn/large/73b64274gw1dvq9aih7q5j.jpg';
+    // document.body.appendChild(img)
+
+    //link 可以发送请求，无法拿到响应结果
+    // let link = document.createElement('link');
+    // link.rel = 'stylesheet';
+    // link.href = 'http://locally.uieee.com.categories';
+    // document.body.appendChild(link);
+
+    //script
+    let script = document.createElement('script');
+    script.src = 'http://localhost/ajax-learning/php2/time2.php';
+    document.body.appendChild(script) // 发起请求
+    
+    function foo(res){
+      console.log(res);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AJAX同步与异步</title>
+</head>
+<body>
+  <script>
+    //区别在于send()会不会出现等待事件
+
+    //没有阻塞
+    console.time('abc')
+    let xhr = new XMLHttpRequest()
+    //第三个参数默认为True,表示异步
+    xhr.open('GET', '../php/time.php',true)
+    xhr.send()
+    console.timeEnd('abc')
+
+    //有阻塞，慢
+    // 不赞成使用这种方式，对用户体验不友好，与AJAX的初衷违背
+    console.time('Sync')
+    let xhrSync = new XMLHttpRequest()
+    xhrSync.open('GET', '../php/time.php',false)
+    // 等到请求全部完成
+    xhrSync.send()
+    // 同步模式可以直接用一下方式获取数
+    console.log(xhrSync.responseText)
+    console.timeEnd('Sync')
+
+  </script>
+</body>
+</html>

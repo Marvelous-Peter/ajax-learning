@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AJAX发送GET请求并传递参数渲染页面</title>
+</head>
+
+<body>
+    <ul id="list"></ul>
+    <script>
+        let list = document.getElementById("list");
+
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', '../php/users.php');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(null)
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                //console.log(this.responseText)
+                let data = JSON.parse(this.responseText)
+                console.log(data)
+                for (let i = 0; i < data.length; i++) {
+                    let liElement = document.createElement('li');
+                    liElement.innerHTML = data[i].name;
+                    liElement.id = data[i].id
+                    list.appendChild(liElement);
+                    liElement.addEventListener('click', function () {
+                        //console.log(data[i].age)
+                        let xhr1 = new XMLHttpRequest();
+                        xhr1.open('GET', '../php/users.php?id=' + this.id)
+                        xhr1.send()
+                        xhr1.onreadystatechange = function () {
+                            if (xhr1.readyState != 4) return
+                            let info = JSON.parse(xhr1.responseText)
+                            alert(info.age)
+                        }
+                    })
+                }
+            }
+        }
+        //因为li是后来动态创建，所以不能怎样注册时间
+        //for (let i = 0; i < list.children.length; i++) {
+        //    list.children[i].addEventListener('click', function () {
+        //        console.log(i)
+        //    })
+        //}
+    </script>
+</body>
+
+</html>

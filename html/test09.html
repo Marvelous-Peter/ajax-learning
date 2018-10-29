@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>AJAX请求XML格式数据</title>
+</head>
+
+<body>
+  <script>
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', "../php/xml.php");
+    xhr.onreadystatechange = function () {
+      //xml过时了，用的不多
+      // 必须设置服务端响应头的Content-Type为application/xml
+      if (xhr.readyState != 4) return
+      console.log(this.responseXML.documentElement.children[0].innerHTML)
+    }
+    xhr.send()
+  </script>
+</body>
+
+</html>

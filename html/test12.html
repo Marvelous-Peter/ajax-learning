@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>AJAX使用模板动态渲染表格</title>
+</head>
+
+<body>
+  <!--
+    引入模板引擎
+    编辑模板 
+    准备数据
+    通过innerHtml渲染
+  -->
+  <table id="table" border="1" style="border-collapse:collapse "></table>
+  <script src="./template-web.js"></script>
+  <script id="templ" type="text/x-art-template">
+    <!-- //each内部$value 拿到的是当前被遍历的元素 -->
+    {{each comments}}
+    <tr>
+        <td>{{$value.author}}</td>
+        <td>{{$value.content}}</td>
+        <td>{{$value.created}}</td>
+    </tr>
+   
+{{/each}}
+
+  </script>
+  <script>
+    let xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObjext();
+    xhr.open('GET', '../php/test.php');
+    xhr.onreadystatechange = function () {
+      if (this.readyState != 4) return;
+      let res = JSON.parse(this.responseText)
+      let contenxt = {
+        comments: res.data
+      };
+
+      //借助模板引擎API渲染页面
+      let html = template('templ',contenxt);
+      console.log(html);
+      document.getElementById("table").innerHTML = html
+    }
+    xhr.send();
+  </script>
+</body>
+
+</html>
